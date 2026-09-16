@@ -33,6 +33,11 @@ Le quiz est accessible en ligne à l'adresse :
 
 **https://malicknnd.github.io/tazawwudu-shubban-quiz/**
 
+## 📖 Source
+
+Toutes les questions et leurs explications sont tirées du traité original :
+[`Tazawwudou-sh-subban-fr.pdf`](./Tazawwudou-sh-subban-fr.pdf) (traduction française).
+
 ## 🛠️ Enrichir le quiz
 
 Les questions sont définies dans le tableau `SECTIONS` au sein du `<script>` de
