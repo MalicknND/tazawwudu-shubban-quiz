@@ -29,11 +29,9 @@ dans un seul fichier, sans dépendance externe autre que les polices Google Font
 
 ## 🌐 Démo
 
-Une fois GitHub Pages activé sur ce dépôt, le quiz est accessible à l'adresse :
+Le quiz est accessible en ligne à l'adresse :
 
-```
-https://<votre-nom-utilisateur>.github.io/tazawwudu-shubban-quiz/
-```
+**https://malicknnd.github.io/tazawwudu-shubban-quiz/**
 
 ## 🛠️ Enrichir le quiz
 
