@@ -1,0 +1,1531 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>Le Viatique de la jeunesse — Quiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5EFDC;
+    --bg-panel: #EFE7CD;
+    --bg-panel-2: #E7DCB9;
+    --ink: #2A2318;
+    --ink-soft: #5C523E;
+    --teal: #1F4C43;
+    --teal-deep: #16352F;
+    --gold: #9C7530;
+    --gold-soft: #C7A45C;
+    --rose: #93393A;
+    --rose-bg: #EFD9D6;
+    --green-bg: #DCE6D3;
+    --line: #CDC0A0;
+    --line-soft: #DED2AF;
+    --shadow: 0 1px 0 rgba(42,35,24,0.06);
+    --radius: 3px;
+    --font-display: 'Cormorant Garamond', serif;
+    --font-body: 'Inter', -apple-system, sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1B1812;
+      --bg-panel: #242019;
+      --bg-panel-2: #2C2620;
+      --ink: #EDE4CE;
+      --ink-soft: #B8AC8E;
+      --teal: #6FAE9C;
+      --teal-deep: #8FC4B3;
+      --gold: #D3AC64;
+      --gold-soft: #E4C685;
+      --rose: #D98787;
+      --rose-bg: #3A2523;
+      --green-bg: #22301F;
+      --line: #443C2E;
+      --line-soft: #38321F;
+      --shadow: 0 1px 0 rgba(0,0,0,0.3);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1B1812;
+    --bg-panel: #242019;
+    --bg-panel-2: #2C2620;
+    --ink: #EDE4CE;
+    --ink-soft: #B8AC8E;
+    --teal: #6FAE9C;
+    --teal-deep: #8FC4B3;
+    --gold: #D3AC64;
+    --gold-soft: #E4C685;
+    --rose: #D98787;
+    --rose-bg: #3A2523;
+    --green-bg: #22301F;
+    --line: #443C2E;
+    --line-soft: #38321F;
+    --shadow: 0 1px 0 rgba(0,0,0,0.3);
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 28px 16px 60px;
+  }
+  a, button { font-family: inherit; }
+
+  .app {
+    width: 100%;
+    max-width: 640px;
+  }
+
+  .rule {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-soft) 20%, var(--gold-soft) 80%, transparent);
+    margin: 0 auto;
+  }
+  .rule.narrow { max-width: 220px; }
+
+  /* ---------- Header (persistent) ---------- */
+  .masthead {
+    text-align: center;
+    margin-bottom: 22px;
+  }
+  .masthead .kicker {
+    font-size: 12.5px;
+    letter-spacing: 0.04em;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .masthead h1 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 34px;
+    line-height: 1.15;
+    margin: 4px 0 2px;
+  }
+  .masthead .arabic {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    color: var(--ink-soft);
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  /* ---------- Home screen ---------- */
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  .lede {
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 14.5px;
+    line-height: 1.6;
+    max-width: 460px;
+    margin: 16px auto 24px;
+  }
+
+  .random-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background: var(--teal);
+    color: #F5EFDC;
+    border: none;
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 28px;
+    transition: background 0.15s ease;
+  }
+  .random-btn:hover { background: var(--teal-deep); }
+  .random-btn .sub {
+    font-weight: 400;
+    font-size: 12.5px;
+    opacity: 0.8;
+    display: block;
+    margin-top: 2px;
+  }
+  .random-btn .arrow { font-size: 20px; opacity: 0.85; }
+
+  .section-list-label {
+    font-size: 12px;
+    letter-spacing: 0.03em;
+    color: var(--ink-soft);
+    margin: 0 0 10px 2px;
+  }
+
+  .section-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    border-top: 1px solid var(--line-soft);
+    padding: 14px 2px;
+    cursor: pointer;
+    color: var(--ink);
+  }
+  .section-list > .section-row:last-child { border-bottom: 1px solid var(--line-soft); }
+  .section-row:hover .section-title { color: var(--teal); }
+  .section-row .num {
+    font-family: var(--font-display);
+    font-size: 22px;
+    color: var(--gold);
+    width: 30px;
+    flex-shrink: 0;
+    text-align: right;
+  }
+  .section-row .meta { flex: 1; min-width: 0; }
+  .section-title {
+    font-size: 16.5px;
+    font-weight: 600;
+    margin: 0 0 2px;
+  }
+  .section-desc {
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+  .section-count {
+    font-size: 12px;
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+  .section-chevron { color: var(--gold-soft); font-size: 18px; }
+
+  /* ---------- Quiz screen ---------- */
+  .quiz-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+  }
+  .back-link {
+    background: none;
+    border: none;
+    color: var(--ink-soft);
+    font-size: 13.5px;
+    cursor: pointer;
+    padding: 6px 0;
+  }
+  .back-link:hover { color: var(--teal); }
+  .quiz-progress-label {
+    font-size: 13px;
+    color: var(--ink-soft);
+    font-variant-numeric: tabular-nums;
+  }
+  .progress-track {
+    height: 3px;
+    background: var(--line-soft);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 22px;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--gold);
+    transition: width 0.25s ease;
+  }
+
+  .score-pill {
+    display: inline-block;
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin-bottom: 18px;
+  }
+
+  .question-card {
+    background: var(--bg-panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 24px 22px 22px;
+    margin-bottom: 18px;
+  }
+  .question-eyebrow {
+    font-size: 12px;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .question-text {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.35;
+    margin: 0;
+  }
+
+  .options { display: flex; flex-direction: column; gap: 10px; }
+  .option-btn {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    text-align: left;
+    width: 100%;
+    background: var(--bg-panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    font-size: 15px;
+    font-family: var(--font-body);
+    color: var(--ink);
+    cursor: pointer;
+    transition: border-color 0.12s ease, background 0.12s ease;
+  }
+  .option-btn:hover:not(:disabled) {
+    border-color: var(--gold);
+    background: var(--bg-panel-2);
+  }
+  .option-btn:disabled { cursor: default; }
+  .option-letter {
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--gold);
+    width: 16px;
+    flex-shrink: 0;
+  }
+  .option-btn.correct {
+    border-color: var(--teal);
+    background: var(--green-bg);
+  }
+  .option-btn.correct .option-letter { color: var(--teal); }
+  .option-btn.incorrect {
+    border-color: var(--rose);
+    background: var(--rose-bg);
+  }
+  .option-btn.incorrect .option-letter { color: var(--rose); }
+  .option-btn.dim { opacity: 0.55; }
+
+  .feedback {
+    margin-top: 16px;
+    padding: 16px 18px;
+    border-radius: var(--radius);
+    border: 1px solid var(--line);
+    display: none;
+  }
+  .feedback.show { display: block; }
+  .feedback.correct { border-color: var(--teal); background: var(--green-bg); }
+  .feedback.incorrect { border-color: var(--rose); background: var(--rose-bg); }
+  .feedback-verdict {
+    font-weight: 700;
+    font-size: 13.5px;
+    margin-bottom: 6px;
+  }
+  .feedback.correct .feedback-verdict { color: var(--teal); }
+  .feedback.incorrect .feedback-verdict { color: var(--rose); }
+  .feedback-explain {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--ink);
+    margin: 0;
+  }
+  .feedback-ref {
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin-top: 8px;
+    font-style: italic;
+  }
+
+  .next-btn {
+    display: none;
+    width: 100%;
+    background: var(--teal);
+    color: #F5EFDC;
+    border: none;
+    border-radius: var(--radius);
+    padding: 14px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 14px;
+  }
+  .next-btn.show { display: block; }
+  .next-btn:hover { background: var(--teal-deep); }
+
+  /* ---------- Result screen ---------- */
+  .result-hero {
+    text-align: center;
+    padding: 30px 0 8px;
+  }
+  .result-score {
+    font-family: var(--font-display);
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--teal);
+  }
+  .result-score .out-of {
+    font-size: 26px;
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
+  .result-pct {
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    margin-top: 8px;
+  }
+  .result-cat {
+    text-align: center;
+    font-size: 13px;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+
+  .result-actions {
+    display: flex;
+    gap: 10px;
+    margin: 26px 0 30px;
+  }
+  .btn {
+    flex: 1;
+    border-radius: var(--radius);
+    padding: 12px 10px;
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    border: 1px solid var(--line);
+    background: var(--bg-panel);
+    color: var(--ink);
+  }
+  .btn:hover { border-color: var(--gold); }
+  .btn.primary {
+    background: var(--teal);
+    color: #F5EFDC;
+    border-color: var(--teal);
+  }
+  .btn.primary:hover { background: var(--teal-deep); }
+
+  .review-title {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 4px;
+  }
+  .review-empty {
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 14px;
+    padding: 20px 0;
+  }
+  .review-item {
+    border-top: 1px solid var(--line-soft);
+    padding: 16px 2px;
+  }
+  .review-q {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0 0 8px;
+  }
+  .review-line { font-size: 13.5px; margin: 3px 0; line-height: 1.5; }
+  .review-line .lbl { color: var(--ink-soft); }
+  .review-line.wrong-ans { color: var(--rose); }
+  .review-line.right-ans { color: var(--teal); }
+  .review-explain {
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    margin-top: 8px;
+    line-height: 1.55;
+  }
+
+  .footnote {
+    text-align: center;
+    font-size: 11.5px;
+    color: var(--ink-soft);
+    margin-top: 36px;
+    line-height: 1.6;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+
+  @media (max-width: 420px) {
+    .masthead h1 { font-size: 27px; }
+    .question-text { font-size: 19px; }
+    .result-score { font-size: 52px; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="masthead">
+    <div class="kicker">QUIZ DE MÉMORISATION</div>
+    <h1>Le Viatique de la jeunesse</h1>
+    <div class="arabic">Tazawwudu-sh-shubbân</div>
+    <div class="rule narrow"></div>
+  </div>
+
+  <!-- HOME -->
+  <section id="screen-home" class="screen active">
+    <p class="lede">
+      Un traité versifié de théologie, de jurisprudence et de perfectionnement spirituel.
+      Choisissez une section à réviser, ou laissez le hasard vous interroger sur l'ensemble
+      des questions disponibles.
+    </p>
+
+    <button class="random-btn" id="btn-random">
+      <span>
+        Mode aléatoire
+        <span class="sub" id="random-count-label">Toutes les sections mélangées</span>
+      </span>
+      <span class="arrow">→</span>
+    </button>
+
+    <div class="section-list-label">SECTIONS DU TRAITÉ</div>
+    <div class="section-list" id="section-list"></div>
+
+    <p class="footnote">Les questions et leurs explications sont tirées exclusivement du texte du traité.</p>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="screen-quiz" class="screen">
+    <div class="quiz-topbar">
+      <button class="back-link" id="btn-quit">← Retour à l'accueil</button>
+      <span class="quiz-progress-label" id="quiz-progress-label">1 / 10</span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+    <div class="score-pill" id="score-pill">Bonnes réponses : 0</div>
+
+    <div class="question-card">
+      <div class="question-eyebrow" id="question-eyebrow">Préambule</div>
+      <p class="question-text" id="question-text"></p>
+    </div>
+
+    <div class="options" id="options"></div>
+
+    <div class="feedback" id="feedback">
+      <div class="feedback-verdict" id="feedback-verdict"></div>
+      <p class="feedback-explain" id="feedback-explain"></p>
+      <div class="feedback-ref" id="feedback-ref"></div>
+    </div>
+
+    <button class="next-btn" id="btn-next">Question suivante →</button>
+  </section>
+
+  <!-- RESULT -->
+  <section id="screen-result" class="screen">
+    <div class="result-cat" id="result-cat">SECTION</div>
+    <div class="result-hero">
+      <div class="result-score"><span id="result-score20">0</span><span class="out-of">/20</span></div>
+      <div class="result-pct" id="result-detail">0 bonnes réponses sur 0 (0 %)</div>
+    </div>
+
+    <div class="result-actions">
+      <button class="btn primary" id="btn-replay">Rejouer</button>
+      <button class="btn" id="btn-review-wrong">Revoir les erreurs</button>
+      <button class="btn" id="btn-home">Accueil</button>
+    </div>
+
+    <div class="rule"></div>
+    <div style="height:20px"></div>
+
+    <div class="review-title">Récapitulatif</div>
+    <div id="review-list"></div>
+  </section>
+
+</div>
+
+<script>
+/* =========================================================================
+   DONNÉES DU QUIZ
+   Structure facile à enrichir : ajoutez des objets dans le tableau
+   `questions` de chaque section, en respectant le même format.
+   Chaque question : { q, options[4], correct(0-3), explain, ref }
+   ========================================================================= */
+
+const SECTIONS = [
+  {
+    id: "preambule",
+    title: "Préambule",
+    desc: "L'exhortation initiale à la quête du savoir",
+    questions: [
+      {
+        q: "D'après le Préambule, que faut-il faire précéder à l'action ?",
+        options: ["La richesse", "La science", "Le voyage", "Le repos"],
+        correct: 1,
+        explain: "Le texte dit : « Si vous redoutez la honte, faites précéder l'action de la science. »",
+        ref: "Vers 9"
+      },
+      {
+        q: "Par quelle science le traité recommande-t-il de commencer l'étude ?",
+        options: [
+          "Les dogmes de la Coutume Prophétique (Théologie)",
+          "Le Soufisme",
+          "La Grammaire arabe",
+          "Le Pèlerinage"
+        ],
+        correct: 0,
+        explain: "« Commencez d'abord par les dogmes de la Coutume Prophétique, qui sont exempts d'innovations et de controverses. »",
+        ref: "Vers 10"
+      },
+      {
+        q: "Selon le Préambule, quel est l'ordre d'étude des trois sciences religieuses ?",
+        options: [
+          "Soufisme, Théologie, Jurisprudence",
+          "Jurisprudence, Soufisme, Théologie",
+          "Théologie, Jurisprudence, Soufisme",
+          "Théologie, Soufisme, Jurisprudence"
+        ],
+        correct: 2,
+        explain: "« Ensuite, (étudiez) la Jurisprudence et après ces deux, la science du Soufisme. » — après la Théologie citée au vers 10.",
+        ref: "Vers 10-11"
+      },
+      {
+        q: "Parmi les « instruments indispensables » cités pour l'étude de la Tradition et du Coran, lequel figure dans le texte ?",
+        options: ["La médecine", "La Rhétorique", "L'astronomie", "La géographie"],
+        correct: 1,
+        explain: "« Come la Grammaire, la Prosodie, la Rhétorique, la Linguistique Arabe et la Sémantique. »",
+        ref: "Vers 13"
+      },
+      {
+        q: "Que risque celui qui remet la recherche du savoir à son âge adulte ?",
+        options: [
+          "Rien de particulier",
+          "D'être privé de l'éminence",
+          "De perdre sa richesse",
+          "De perdre la santé"
+        ],
+        correct: 1,
+        explain: "« Ne remettez pas la recherche du savoir à votre âge adulte, car cela prive de l'éminence. »",
+        ref: "Vers 15"
+      },
+      {
+        q: "Combien de parties compte la Religion de Dieu, selon le texte ?",
+        options: ["Deux", "Trois", "Quatre", "Cinq"],
+        correct: 1,
+        explain: "« Les parties de la Religion de DIEU sont au nombre de trois, sans controverse. »",
+        ref: "Vers 19"
+      },
+      {
+        q: "Quelles sont les trois parties de la Religion citées au vers 20 ?",
+        options: [
+          "Le Jeûne, la Prière, l'Aumône",
+          "Al Imân, Al Islâm, Al Ihsân",
+          "Le Coran, la Sunna, le Consensus",
+          "La Théologie, la Grammaire, la Rhétorique"
+        ],
+        correct: 1,
+        explain: "« La Confession de Foi (Al Imân), puis la Voie de la Soumission à DIEU (Al Islâm) et après ces deux, la Voie du Perfectionnement Spirituel (Al Ihsân). »",
+        ref: "Vers 20"
+      },
+      {
+        q: "Dans l'image donnée par le texte, que représente la Théologie pour la Religion ?",
+        options: ["Le Corps", "L'Âme", "Le Vêtement", "Les Racines"],
+        correct: 1,
+        explain: "« Il semble que la Théologie […] constitue l'Âme de la Religion de DIEU. »",
+        ref: "Vers 23"
+      },
+      {
+        q: "Que représente le Soufisme dans cette même image ?",
+        options: ["L'Âme", "Le Corps", "Le Vêtement", "Le Squelette"],
+        correct: 2,
+        explain: "« Son Corps étant l'Islam […] et le Soufisme, le Vêtement par lequel Elle s'apprête. »",
+        ref: "Vers 24"
+      }
+    ]
+  },
+  {
+    id: "foi-dieu",
+    title: "Théologie — Foi en Dieu",
+    desc: "Les attributs divins et leurs preuves",
+    questions: [
+      {
+        q: "Qu'affirme la foi au sujet de l'Existence (Wujûd) de Dieu ?",
+        options: ["Qu'elle est symbolique", "Qu'elle est réelle", "Qu'elle est douteuse", "Qu'elle est future"],
+        correct: 1,
+        explain: "« Votre foi en votre SEIGNEUR est de certifier que Son EXISTENCE (wujûd) est réelle. »",
+        ref: "Vers 33"
+      },
+      {
+        q: "D'après le texte, Dieu est Primordial (Qidam) et Subsistant (Baqâ) ; que signifie cela ?",
+        options: [
+          "Il a un commencement mais pas de fin",
+          "Il n'a ni commencement ni fin",
+          "Il a un commencement et une fin",
+          "Il change avec le temps"
+        ],
+        correct: 1,
+        explain: "« Qu'Il est PRIMORDIAL (Qidam) et n'a point de commencement et qu'Il est SUBSISTANT (Baqâ) et n'a guère de fin. »",
+        ref: "Vers 34"
+      },
+      {
+        q: "Selon le vers 50, quel exemple illustre le fait qu'un acte indique l'existence de son auteur ?",
+        options: [
+          "Le vent indique la tempête",
+          "Le crottin indique l'existence du chameau",
+          "Le feu indique la fumée",
+          "L'ombre indique le soleil"
+        ],
+        correct: 1,
+        explain: "« Ne vois-tu pas que le crottin nous indique l'existence du chameau et la trace d'un pas, celle d'un marcheur ? »",
+        ref: "Vers 50"
+      },
+      {
+        q: "Parmi les attributs suivants, lequel fait partie des contraires interdits à Dieu, cités dans le texte ?",
+        options: ["La Puissance", "La Non-existence", "La Vie", "La Parole"],
+        correct: 1,
+        explain: "« (Tels que :) la NON-EXISTENCE, l'ADVENCITE, l'EXTINCTION, la SIMILITUDE, l'INSUFFISANCE comme nous autres. »",
+        ref: "Vers 42"
+      },
+      {
+        q: "D'après le vers 46, quelle obligation incombe à Dieu envers Ses créatures ?",
+        options: [
+          "Il doit leur accorder le Paradis",
+          "Aucune obligation ne Lui incombe",
+          "Il doit répondre à toutes les prières",
+          "Il doit créer chaque être possible"
+        ],
+        correct: 1,
+        explain: "« Quant à Lui - Exalté soit - Il ! - nulle obligation, quelle qu'elle soit, ne Lui incombe et on ne Lui assigne rien du tout. »",
+        ref: "Vers 46"
+      },
+      {
+        q: "Qu'est-ce qui, selon le vers 48, prouve l'Existence de Dieu ?",
+        options: ["Les livres saints", "Son Acte", "Les rêves des croyants", "Les miracles seuls"],
+        correct: 1,
+        explain: "« Et quant à ce qui prouve Son Existence, c'est Son Acte, qui exprime Son UNICITE. »",
+        ref: "Vers 48"
+      }
+    ]
+  },
+  {
+    id: "anges",
+    title: "Les Anges",
+    desc: "Nature, nombre et fonctions des Anges",
+    questions: [
+      {
+        q: "D'après le texte, que ne font jamais les Anges ?",
+        options: [
+          "Ils ne se déplacent pas",
+          "Ils ne mangent ni ne boivent",
+          "Ils ne parlent pas",
+          "Ils ne voient pas"
+        ],
+        correct: 1,
+        explain: "« Ce ne sont pas des mâles […] et point ils ne mangent, ni aussi des femelles […] point ils ne boivent. »",
+        ref: "Vers 57"
+      },
+      {
+        q: "À partir de quoi les Anges ont-ils été créés, selon le vers 59 ?",
+        options: ["De l'argile", "Du feu", "De la Lumière", "De l'eau"],
+        correct: 2,
+        explain: "« Le MAÎTRE DU GENRE HUMAIN les a créés à partir de Sa Lumière. »",
+        ref: "Vers 59"
+      },
+      {
+        q: "Quelle est la « nourriture » des Anges, d'après le vers 60 ?",
+        options: ["Le miel du Paradis", "La sanctification de Dieu", "L'air pur", "La lumière des étoiles"],
+        correct: 1,
+        explain: "« Leur nourriture est la sanctification [de DIEU] et leur breuvage est de se consacrer constamment à la louange. »",
+        ref: "Vers 60"
+      },
+      {
+        q: "Combien d'Anges est-il obligatoire de connaître nommément, selon le texte ?",
+        options: ["Cinq", "Sept", "Dix", "Douze"],
+        correct: 2,
+        explain: "« Leur nombre est de dix. »",
+        ref: "Vers 62"
+      },
+      {
+        q: "Quelle fonction est assignée à l'Archange Gabriel (Jibrîl) ?",
+        options: ["La pluie", "La Révélation de Dieu", "La préhension des âmes", "Le Souffle de la Trompette"],
+        correct: 1,
+        explain: "« La Révélation de DIEU est conférée à Gabriel. »",
+        ref: "Vers 65"
+      },
+      {
+        q: "Quelle fonction revient à Séraphin (Isrâfîl) ?",
+        options: ["Le Souffle de la Trompette", "La pluie", "L'interrogatoire des morts", "Le gardiennage de l'Enfer"],
+        correct: 0,
+        explain: "« Le Souffle de la Trompette revient à Séraphin. »",
+        ref: "Vers 67"
+      },
+      {
+        q: "Qui interroge le mort dans sa tombe sur la Profession de l'Unité Divine ?",
+        options: ["Raqîb et Atîd", "Munkar et Nakîr", "Gabriel et Michael", "Malik et Ridwân"],
+        correct: 1,
+        explain: "« Munkar et Nakîr parviennent à l'individu après sa mort et l'interrogent […] sur les principes de la Profession de l'Unité Divine. »",
+        ref: "Vers 68-69"
+      },
+      {
+        q: "Qui est Mâlik parmi les Anges cités ?",
+        options: ["Le Concierge du Paradis", "Le Gardien de l'Enfer", "Le porteur de la Révélation", "Le préposé à la pluie"],
+        correct: 1,
+        explain: "« Parmi eux, il y' a Mâlik qui est le Gardien de l'Enfer et notre Ridwân, le Concierge du Paradis. »",
+        ref: "Vers 81"
+      },
+      {
+        q: "Parmi les catégories suivantes, laquelle est citée comme dispensée de l'interrogatoire dans la tombe ?",
+        options: ["Les riches", "Les martyrs", "Les voyageurs", "Les enfants uniquement"],
+        correct: 1,
+        explain: "« Excepte les Prophètes […] les anges aussi, puis les martyrs, ainsi que les véridiques. »",
+        ref: "Vers 83-84"
+      }
+    ]
+  },
+  {
+    id: "livres",
+    title: "Les Livres Révélés",
+    desc: "Les Écritures et leur nombre",
+    questions: [
+      {
+        q: "Combien de Livres et Feuillets furent révélés au total, selon la valeur numérique donnée dans le texte ?",
+        options: ["100", "104", "114", "124"],
+        correct: 1,
+        explain: "« Leur nombre correspond à la valeur numérique du composé QADUN […] Soit 104. »",
+        ref: "Vers 91"
+      },
+      {
+        q: "Combien de Feuillets furent révélés à notre père Adam ?",
+        options: ["Dix", "Vingt", "Cinquante", "Cent"],
+        correct: 0,
+        explain: "« Il a été révélé un nombre correspondant à la valeur numérique de la lettre Yâ (soit dix) à notre père ADAM. »",
+        ref: "Vers 92"
+      },
+      {
+        q: "Combien de Feuillets furent révélés à Seth, fils d'Adam ?",
+        options: ["Dix", "Trente", "Cinquante", "Cent"],
+        correct: 2,
+        explain: "« […] puis cinquante à son fils SETH. »",
+        ref: "Vers 92"
+      },
+      {
+        q: "Qui reçut le Pentateuque, selon le vers 95 ?",
+        options: ["Jésus", "David", "Moïse", "Mouhammad"],
+        correct: 2,
+        explain: "« Le PENTATEUQUE, parmi ces Livres, fut reçu par MOISE. »",
+        ref: "Vers 95"
+      },
+      {
+        q: "Qui reçut les Psaumes ?",
+        options: ["David", "Jésus", "Abraham", "Esdras"],
+        correct: 0,
+        explain: "« Puis les PSAUMES furent révélés à DAVID. »",
+        ref: "Vers 96"
+      },
+      {
+        q: "Combien de Livres est-il exclusivement obligatoire de distinguer parmi tous ceux révélés ?",
+        options: ["Deux", "Trois", "Quatre", "Dix"],
+        correct: 2,
+        explain: "« Il est exclusivement obligatoire de distinguer les quatre Livres précités et non les autres. »",
+        ref: "Vers 100"
+      }
+    ]
+  },
+  {
+    id: "envoyes",
+    title: "Les Envoyés",
+    desc: "Leurs qualités obligatoires et leur nombre",
+    questions: [
+      {
+        q: "Quelles sont les trois qualités indispensables aux Envoyés, selon le vers 105 ?",
+        options: [
+          "Sincérité, Fidélité, Transmission",
+          "Force, Richesse, Sagesse",
+          "Jeûne, Prière, Aumône",
+          "Patience, Courage, Générosité"
+        ],
+        correct: 0,
+        explain: "« Il est indispensable à leur égard […] la SINCERITE, la FIDELITE et leur TRANSMISSION (DU MESSAGE). »",
+        ref: "Vers 105"
+      },
+      {
+        q: "Lequel de ces défauts est jugé inadmissible chez un Envoyé ?",
+        options: ["La fatigue", "Le mensonge", "La faim", "La maladie"],
+        correct: 1,
+        explain: "« Il est inadmissible à leur égard qu'ils commettent le PARJURE, le MENSONGE et la DISSIMULATION de la Vérité. »",
+        ref: "Vers 106"
+      },
+      {
+        q: "Qu'est-ce qui constitue, selon le texte, la preuve de la Sincérité des Envoyés ?",
+        options: ["Leur richesse", "Les miracles", "Leur âge", "Leur nombre d'adeptes"],
+        correct: 1,
+        explain: "« Quant à la preuve de leur Sincérité, ce sont les miracles qui leur proviennent du MAJESTUEUX. »",
+        ref: "Vers 117"
+      },
+      {
+        q: "Quel événement est cité comme exemple célèbre du miracle par « défi » (Tahaddi) ?",
+        options: [
+          "Le fendage de la lune",
+          "La création du monde",
+          "La construction de la Kaaba",
+          "Le déluge de Noé"
+        ],
+        correct: 0,
+        explain: "« A l'instar du fendage de la lune, très célèbre en Hagiographie (du Prophète). »",
+        ref: "Vers 123"
+      },
+      {
+        q: "Quel est le nombre total des Prophètes et Envoyés indiqué dans le texte ?",
+        options: ["25 000", "104 000", "124 000", "313"],
+        correct: 2,
+        explain: "« L'ensemble des Prophètes et des Envoyés est équivalent à la valeur numérique du composé […] soit cent vingt quatre, multiplié par mille (124.000). »",
+        ref: "Vers 134"
+      },
+      {
+        q: "Combien de Prophètes sont cités nommément comme figurant dans le Coran ?",
+        options: ["Dix", "Vingt-cinq", "Cent", "Trois cent treize"],
+        correct: 1,
+        explain: "« Distinguez ceux qui figurent dans le Coran, leur nombre correspond à la valeur numérique du composé KAHUN […] soit vingt cinq. »",
+        ref: "Vers 136"
+      }
+    ]
+  },
+  {
+    id: "jour-ultime",
+    title: "Le Jour Ultime",
+    desc: "La Résurrection et ses étapes",
+    questions: [
+      {
+        q: "Combien d'étapes comprend le processus de la Résurrection ?",
+        options: ["Une seule", "Deux : la Petite et la Grande", "Trois", "Quatre"],
+        correct: 1,
+        explain: "« Le processus de la Résurrection comprend deux Etapes : la Petite et la Grande. »",
+        ref: "Vers 151"
+      },
+      {
+        q: "Qu'est-ce que la « Petite » Résurrection selon le texte ?",
+        options: [
+          "La mort de tout individu",
+          "La mort de tout le genre humain",
+          "Le Jugement Dernier",
+          "L'interrogation dans la tombe"
+        ],
+        correct: 0,
+        explain: "« La Petite d'entre elles consiste en la mort (de tout individu). »",
+        ref: "Vers 152"
+      },
+      {
+        q: "Qu'est-ce que la « Grande » Étape de la Résurrection ?",
+        options: ["La mort d'un seul homme", "La mort de tout le genre humain", "La naissance de l'humanité", "Le sommeil"],
+        correct: 1,
+        explain: "« Quant à la Grande Etape, c'est la mort de tout le genre humain. »",
+        ref: "Vers 152"
+      },
+      {
+        q: "Combien d'années, selon le texte, dure le Jour du Rassemblement ?",
+        options: ["Mille ans", "Dix mille ans", "Cinquante mille ans", "Cent mille ans"],
+        correct: 2,
+        explain: "« Sa durée, en nombre d'années, est comptée à cinquante mille. »",
+        ref: "Vers 157"
+      },
+      {
+        q: "Que se passe-t-il pour celui qui reçoit son livre de comptes par la main droite ?",
+        options: [
+          "Il sera jugé plus sévèrement",
+          "Il sera sauvé du châtiment",
+          "Rien de particulier",
+          "Il devra recommencer sa vie"
+        ],
+        correct: 1,
+        explain: "« Celui qui recevra son livre par la main droite en ce Jour, sera sauvé du châtiment. »",
+        ref: "Vers 159"
+      }
+    ]
+  },
+  {
+    id: "decret",
+    title: "Le Décret Divin",
+    desc: "La croyance en la prédestination",
+    questions: [
+      {
+        q: "Que professe la foi au Décret Divin, d'après les vers 163-165 ?",
+        options: [
+          "Que le hasard gouverne le monde",
+          "Que tout ce qui arrive est connu de Dieu et relève de Sa Volonté et Sa Puissance",
+          "Que Dieu ignore l'avenir",
+          "Que les hommes créent seuls leurs actes"
+        ],
+        correct: 1,
+        explain: "« Que tout ce qui arrive dans le temps […] est connu de votre SEIGNEUR et relève de Sa VOLONTE et de Sa PUISSANCE. »",
+        ref: "Vers 163-165"
+      },
+      {
+        q: "Selon les vers 170-171, que se passerait-il si toutes les créatures voulaient faire bouger un seul atome sans la Volonté de Dieu ?",
+        options: [
+          "Elles y parviendraient facilement",
+          "Elles en seraient incapables",
+          "Cela détruirait l'univers",
+          "Dieu les en empêcherait par la force"
+        ],
+        correct: 1,
+        explain: "« Si elles se coalisaient pour faire bouger uniquement un atome […] Sans la VOLONTE du CLEMENT, elles en seraient incapables. »",
+        ref: "Vers 170-171"
+      },
+      {
+        q: "Que signifie la formule « Il n'y a de Divinité si ce n'est Allah », d'après le commentaire du vers 180 ?",
+        options: [
+          "Que Dieu a besoin de Ses créatures",
+          "Que nul autre que Dieu n'est autosuffisant, sans besoin de rien",
+          "Que Dieu partage Sa Divinité",
+          "Qu'il existe plusieurs divinités mineures"
+        ],
+        correct: 1,
+        explain: "« Est : nul autre n'est autosuffisant, n'ayant besoin de rien, en dehors de lui, si ce n'est DIEU Seul. »",
+        ref: "Vers 180-181"
+      }
+    ]
+  },
+  {
+    id: "purification",
+    title: "La Purification",
+    desc: "L'eau rituelle, les ablutions",
+    questions: [
+      {
+        q: "Avec quoi la Purification doit-elle s'effectuer, selon le vers 191 ?",
+        options: ["N'importe quel liquide", "Une eau rituellement purifiante", "De l'huile parfumée", "Du sable uniquement"],
+        correct: 1,
+        explain: "« La Purification […] s'effectue au moyen d'une eau rituellement purifiante. »",
+        ref: "Vers 191"
+      },
+      {
+        q: "Qu'est-ce qui rend une eau impropre à la purification selon le vers 192 ?",
+        options: [
+          "Sa température",
+          "Une altération de sa saveur, sa couleur ou son odeur",
+          "Sa provenance géographique",
+          "Sa quantité"
+        ],
+        correct: 1,
+        explain: "« C'est celle qui est exempte de toute altération, dans sa saveur, sa couleur et dans son odeur. »",
+        ref: "Vers 192"
+      },
+      {
+        q: "Combien d'Actes Obligatoires compte l'Ablution (Wudû') ?",
+        options: ["Cinq", "Sept", "Huit", "Dix"],
+        correct: 1,
+        explain: "« Les Obligations Divines de l'Ablution […] sont au nombre de sept. »",
+        ref: "Vers 242"
+      },
+      {
+        q: "Quel est le premier Acte Obligatoire de l'Ablution ?",
+        options: [
+          "Le lavage des pieds",
+          "La formulation de l'intention",
+          "Le passage des mains sur la tête",
+          "Le lavage du visage"
+        ],
+        correct: 1,
+        explain: "« Notre formulation de l'intention, notre lavage du visage… » — l'intention est citée en premier.",
+        ref: "Vers 243"
+      },
+      {
+        q: "Combien d'Actes Traditionnels (Sunna) compte également l'Ablution ?",
+        options: ["Cinq", "Six", "Sept", "Neuf"],
+        correct: 2,
+        explain: "« Ses Actes Traditionnels, comme les Obligations Divines sont comptés à sept. »",
+        ref: "Vers 245"
+      }
+    ]
+  },
+  {
+    id: "prieres",
+    title: "Les Prières",
+    desc: "Conditions, actes obligatoires et heures",
+    questions: [
+      {
+        q: "En combien de catégories se divisent les conditions de la Prière Rituelle ?",
+        options: [
+          "Une seule",
+          "Deux : sa nécessité et sa validité",
+          "Trois",
+          "Cinq"
+        ],
+        correct: 1,
+        explain: "« Les conditions de la Prière Rituelle se divisent […] en deux parties : sa nécessité et sa validité. »",
+        ref: "Vers 350"
+      },
+      {
+        q: "Combien d'Actes Obligatoires compte la prière, selon l'opinion la plus citée ?",
+        options: ["Dix", "Douze", "Quinze", "Vingt"],
+        correct: 2,
+        explain: "« Les Actes Obligatoires de la prière sont au nombre de quinze, certains stipulent qu'ils sont seize. »",
+        ref: "Vers 412"
+      },
+      {
+        q: "Quand commence l'heure de la prière du matin (Çubh), selon le vers 433 ?",
+        options: [
+          "Au lever du soleil",
+          "De l'aube décisive à la distinction nette des visages",
+          "À midi",
+          "Au coucher du soleil"
+        ],
+        correct: 1,
+        explain: "« La prière du matin (Çubh) : son temps se situe […] de l'aube décisive à la distinction nette (des visages). »",
+        ref: "Vers 433"
+      },
+      {
+        q: "Quelle prière surérogatoire est décrite comme « la plus renforcée » de toutes les pratiques traditionnelles ?",
+        options: ["Les deux rakca de l'aube", "Le Witr", "La prière de la matinée", "L'hommage à la mosquée"],
+        correct: 1,
+        explain: "« Elle est la plus renforcée de toutes les pratiques traditionnelles, aux yeux de la plus grande majorité des jurisconsultes. »",
+        ref: "Vers 468"
+      }
+    ]
+  },
+  {
+    id: "jeune",
+    title: "Le Jeûne",
+    desc: "Ses obligations et sa véritable nature",
+    questions: [
+      {
+        q: "Combien d'Actes Obligatoires compte le Jeûne ?",
+        options: ["Un seul", "Deux", "Trois", "Quatre"],
+        correct: 1,
+        explain: "« Les deux actes obligatoires du Jeûne consistent en la formulation parfaite de l'intention et en notre abstention de tout ce qui rompt le jeûne. »",
+        ref: "Vers 475"
+      },
+      {
+        q: "Combien d'Actes Traditionnels compte le Jeûne ?",
+        options: ["Deux", "Trois", "Cinq", "Sept"],
+        correct: 1,
+        explain: "« Ses Actes Traditionnels sont au nombre de trois. »",
+        ref: "Vers 476"
+      },
+      {
+        q: "Selon le vers 496, en quoi consiste véritablement le jeûne ?",
+        options: [
+          "Seulement s'abstenir de manger",
+          "Seulement s'abstenir de boire",
+          "L'abstention de tous les membres de ce qui mène à l'erreur, pas seulement du manger et du boire",
+          "Rester allongé toute la journée"
+        ],
+        correct: 2,
+        explain: "« Il n'y a de jeûne que lorsque tous les membres s'abstiennent de tout ce qui est susceptible de conduire l'individu à l'erreur. »",
+        ref: "Vers 496"
+      },
+      {
+        q: "Quel jour est cité comme celui où la Mer Rouge se fendit en faveur de Moïse ?",
+        options: ["Le 27 Rajab", "Le dixième jour (Âshûrâ)", "Le 15 Sha'bân", "Le 9 Dhûl Hijja"],
+        correct: 1,
+        explain: "« C'est en ce jour que la Mer Rouge se fendit en la faveur de MOISE. » — évoqué parmi les événements du jour d'Âshûrâ.",
+        ref: "Vers 509"
+      }
+    ]
+  },
+  {
+    id: "aumone",
+    title: "L'Aumône Légale",
+    desc: "La Zakât et ses bénéficiaires",
+    questions: [
+      {
+        q: "Combien d'Obligations compte l'Aumône Légale (Zakât) ?",
+        options: ["Deux", "Trois", "Quatre", "Cinq"],
+        correct: 2,
+        explain: "« Quant à l'Aumône Légale, on compte ses Obligations au nombre de quatre. »",
+        ref: "Vers 516"
+      },
+      {
+        q: "À combien de catégories de personnes l'Aumône Légale est-elle destinée, selon le Coran cité dans le texte ?",
+        options: ["Quatre", "Six", "Huit", "Dix"],
+        correct: 2,
+        explain: "« Elle est destinée à huit catégories de personnes dont le détail figure dans le Coran. »",
+        ref: "Vers 523"
+      }
+    ]
+  },
+  {
+    id: "pelerinage",
+    title: "Le Pèlerinage",
+    desc: "Ses actes obligatoires",
+    questions: [
+      {
+        q: "Combien d'Actes Obligatoires compte le Pèlerinage ?",
+        options: ["Deux", "Trois", "Quatre", "Cinq"],
+        correct: 2,
+        explain: "« Les Actes Obligatoires du Pèlerinage, selon les Maîtres, sont au nombre de quatre. »",
+        ref: "Vers 529"
+      },
+      {
+        q: "Lequel de ces actes fait partie des quatre Actes Obligatoires du Pèlerinage ?",
+        options: [
+          "La station de Arafa",
+          "L'achat d'un mouton",
+          "Le rasage de la tête",
+          "La visite de Médine"
+        ],
+        correct: 0,
+        explain: "« Puis la station de Arafa […] est le quatrième des quatre. »",
+        ref: "Vers 532"
+      },
+      {
+        q: "De quoi le Pèlerinage affranchit-il l'homme, selon l'épilogue ?",
+        options: [
+          "De toutes ses richesses",
+          "De l'ensemble de ses péchés et du reste de ses vices",
+          "De ses obligations familiales",
+          "De la prière quotidienne"
+        ],
+        correct: 1,
+        explain: "« Le Pèlerinage affranchit l'homme de l'ensemble de ses péchés et du reste de ses vices. »",
+        ref: "Vers 544"
+      }
+    ]
+  },
+  {
+    id: "soufisme",
+    title: "Le Soufisme",
+    desc: "Le perfectionnement spirituel",
+    questions: [
+      {
+        q: "Comment Ghazâli définit-il le Soufisme, d'après le vers 556 ?",
+        options: [
+          "La récitation de formules magiques",
+          "Le dépouillement de nos cœurs pour le Maître Très Proche exclusivement",
+          "L'accumulation de connaissances",
+          "Le jeûne perpétuel"
+        ],
+        correct: 1,
+        explain: "« La définition du Soufisme chez Ghazâli, c'est le dépouillement de nos cœurs, pour le MAÎTRE TRES PROCHE (Al Wâlî) exclusivement. »",
+        ref: "Vers 556"
+      },
+      {
+        q: "Quelle est la première obligation d'un novice (murîd), selon le vers 558 ?",
+        options: [
+          "La retraite spirituelle immédiate",
+          "Se prémunir de la Profession de l'Unicité Divine (Tawhîd)",
+          "La Guerre Sainte",
+          "Le voyage vers La Mecque"
+        ],
+        correct: 1,
+        explain: "« La première des obligations d'un novice […] c'est de se prémunir de son viatique qui est la Profession de l'Unicité Divine (Tawhid). »",
+        ref: "Vers 558"
+      },
+      {
+        q: "Que risque celui qui s'aventure dans le Soufisme sans la compagnie d'un Maître Spirituel ?",
+        options: [
+          "Rien, cela reste sans danger",
+          "De s'enfoncer dans les profondeurs du péril",
+          "De devenir riche spirituellement plus vite",
+          "D'être exempté d'obligations religieuses"
+        ],
+        correct: 1,
+        explain: "« Celui qui s'aventure dans les jungles du Soufisme, sans la compagnie d'un parfait Maître Spirituel, s'enfonce à coup sûr dans les profondeurs du péril. »",
+        ref: "Vers 566-567"
+      },
+      {
+        q: "Combien d'ennemis faut-il combattre dans la « Grande Guerre Sainte » spirituelle, selon le vers 624-626 ?",
+        options: ["Deux", "Trois", "Quatre", "Six"],
+        correct: 2,
+        explain: "« Commencez par quatre […] : l'Ame Charnelle, le Bas-Monde, Satan le Maudit et la Passion Profane. »",
+        ref: "Vers 624-626"
+      },
+      {
+        q: "Par quoi l'Âme Charnelle est-elle « emprisonnée », selon le vers 628 ?",
+        options: ["Par le silence", "Par une faim longuement endurée", "Par la solitude", "Par la prière"],
+        correct: 1,
+        explain: "« L'Ame Charnelle […] est emprisonnée par une faim longuement endurée et elle n'a pas d'autre entrave connue en dehors de celle-ci. »",
+        ref: "Vers 628"
+      },
+      {
+        q: "Quelle est, selon le texte, la « prison » de Satan pour le novice spirituel ?",
+        options: [
+          "Le silence total",
+          "La répétition des Noms de Dieu (Dhikr)",
+          "L'isolement social",
+          "Le jeûne perpétuel"
+        ],
+        correct: 1,
+        explain: "« La prison de Satan est, sans divergence, la répétition des NOMS de DIEU. »",
+        ref: "Vers 632"
+      }
+    ]
+  },
+  {
+    id: "membres",
+    title: "La Préservation des Membres",
+    desc: "Ventre, langue, yeux, mains, oreilles…",
+    questions: [
+      {
+        q: "Combien de membres le texte recommande-t-il de préserver de la désobéissance ?",
+        options: ["Cinq", "Six", "Sept", "Neuf"],
+        correct: 2,
+        explain: "« Puis préservez les membres […] Le septième, c'est les oreilles. »",
+        ref: "Vers 636-637"
+      },
+      {
+        q: "De quoi faut-il préserver le ventre, selon le vers 642 ?",
+        options: [
+          "De toute nourriture",
+          "De ce qui est illicite et douteux",
+          "Des repas trop légers",
+          "De la nourriture épicée"
+        ],
+        correct: 1,
+        explain: "« Quant au ventre, préservez-le de la consommation de ce qui est illicite et douteux. »",
+        ref: "Vers 642"
+      },
+      {
+        q: "Combien d'infirmités de la langue le texte énumère-t-il ?",
+        options: ["Quatre", "Six", "Huit", "Dix"],
+        correct: 2,
+        explain: "« Quant à la langue, préservez-la toujours de huit infirmités. »",
+        ref: "Vers 655"
+      },
+      {
+        q: "Laquelle de ces infirmités de la langue est explicitement citée dans le texte ?",
+        options: ["La gourmandise", "Le mensonge", "La paresse", "L'avarice"],
+        correct: 1,
+        explain: "« A savoir : le mensonge, la médisance, la polémique, la controverse, la moquerie… »",
+        ref: "Vers 656"
+      },
+      {
+        q: "D'après le vers 695, que risque celui qui écoute simplement la médisance ?",
+        options: [
+          "Rien, seul celui qui la profère est fautif",
+          "Il s'associe à l'auteur de la médisance dans ce péché",
+          "Il doit se purifier par le jeûne",
+          "Il doit payer une amende"
+        ],
+        correct: 1,
+        explain: "« Celui qui écoute la médisance s'associe à l'auteur de celle-ci dans ce qu'il entend. »",
+        ref: "Vers 695"
+      }
+    ]
+  }
+];
+
+/* ========================= LOGIQUE DE L'APPLICATION ========================= */
+
+const els = {
+  home: document.getElementById('screen-home'),
+  quiz: document.getElementById('screen-quiz'),
+  result: document.getElementById('screen-result'),
+  sectionList: document.getElementById('section-list'),
+  randomBtn: document.getElementById('btn-random'),
+  randomCountLabel: document.getElementById('random-count-label'),
+  progressLabel: document.getElementById('quiz-progress-label'),
+  progressFill: document.getElementById('progress-fill'),
+  scorePill: document.getElementById('score-pill'),
+  questionEyebrow: document.getElementById('question-eyebrow'),
+  questionText: document.getElementById('question-text'),
+  options: document.getElementById('options'),
+  feedback: document.getElementById('feedback'),
+  feedbackVerdict: document.getElementById('feedback-verdict'),
+  feedbackExplain: document.getElementById('feedback-explain'),
+  feedbackRef: document.getElementById('feedback-ref'),
+  nextBtn: document.getElementById('btn-next'),
+  quitBtn: document.getElementById('btn-quit'),
+  resultCat: document.getElementById('result-cat'),
+  resultScore20: document.getElementById('result-score20'),
+  resultDetail: document.getElementById('result-detail'),
+  replayBtn: document.getElementById('btn-replay'),
+  reviewWrongBtn: document.getElementById('btn-review-wrong'),
+  homeBtn: document.getElementById('btn-home'),
+  reviewList: document.getElementById('review-list'),
+};
+
+let state = {
+  queue: [],
+  index: 0,
+  correctCount: 0,
+  answers: [], // {question, chosenIndex, correct}
+  categoryLabel: '',
+  lastMode: null, // {type: 'section'|'random', id}
+};
+
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function totalQuestionCount() {
+  return SECTIONS.reduce((sum, s) => sum + s.questions.length, 0);
+}
+
+function buildSectionList() {
+  els.sectionList.innerHTML = '';
+  SECTIONS.forEach((section, idx) => {
+    const row = document.createElement('button');
+    row.className = 'section-row';
+    row.innerHTML = `
+      <span class="num">${String(idx + 1).padStart(2, '0')}</span>
+      <span class="meta">
+        <p class="section-title">${section.title}</p>
+        <p class="section-desc">${section.desc}</p>
+      </span>
+      <span class="section-count">${section.questions.length} Q</span>
+      <span class="section-chevron">›</span>
+    `;
+    row.addEventListener('click', () => startQuiz({ type: 'section', id: section.id }));
+    els.sectionList.appendChild(row);
+  });
+  els.randomCountLabel.textContent = `${totalQuestionCount()} questions, toutes sections mélangées`;
+}
+
+function startQuiz(mode) {
+  state.lastMode = mode;
+  let pool, label;
+  if (mode.type === 'section') {
+    const section = SECTIONS.find(s => s.id === mode.id);
+    pool = section.questions.map(q => ({ ...q, sectionTitle: section.title }));
+    label = section.title;
+  } else {
+    pool = SECTIONS.flatMap(s => s.questions.map(q => ({ ...q, sectionTitle: s.title })));
+    label = 'Mode aléatoire';
+  }
+  state.queue = shuffle(pool);
+  state.index = 0;
+  state.correctCount = 0;
+  state.answers = [];
+  state.categoryLabel = label;
+  showScreen('quiz');
+  renderQuestion();
+}
+
+function showScreen(name) {
+  [els.home, els.quiz, els.result].forEach(s => s.classList.remove('active'));
+  if (name === 'home') els.home.classList.add('active');
+  if (name === 'quiz') els.quiz.classList.add('active');
+  if (name === 'result') els.result.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+}
+
+function renderQuestion() {
+  const total = state.queue.length;
+  const current = state.queue[state.index];
+
+  els.progressLabel.textContent = `${state.index + 1} / ${total}`;
+  els.progressFill.style.width = `${((state.index) / total) * 100}%`;
+  els.scorePill.textContent = `Bonnes réponses : ${state.correctCount} / ${state.index}`;
+  els.questionEyebrow.textContent = current.sectionTitle;
+  els.questionText.textContent = current.q;
+
+  els.options.innerHTML = '';
+  const letters = ['A', 'B', 'C', 'D'];
+  current.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.innerHTML = `<span class="option-letter">${letters[i]}</span><span>${opt}</span>`;
+    btn.addEventListener('click', () => selectAnswer(i));
+    els.options.appendChild(btn);
+  });
+
+  els.feedback.classList.remove('show', 'correct', 'incorrect');
+  els.nextBtn.classList.remove('show');
+}
+
+function selectAnswer(chosenIndex) {
+  const current = state.queue[state.index];
+  const isCorrect = chosenIndex === current.correct;
+  const buttons = els.options.querySelectorAll('.option-btn');
+
+  buttons.forEach((btn, i) => {
+    btn.disabled = true;
+    if (i === current.correct) btn.classList.add('correct');
+    else if (i === chosenIndex) btn.classList.add('incorrect');
+    else btn.classList.add('dim');
+  });
+
+  if (isCorrect) state.correctCount++;
+  state.answers.push({ question: current, chosenIndex, isCorrect });
+
+  els.feedback.classList.add('show', isCorrect ? 'correct' : 'incorrect');
+  els.feedbackVerdict.textContent = isCorrect ? 'Bonne réponse.' : 'Réponse incorrecte.';
+  els.feedbackExplain.textContent = current.explain;
+  els.feedbackRef.textContent = current.ref || '';
+
+  els.scorePill.textContent = `Bonnes réponses : ${state.correctCount} / ${state.index + 1}`;
+  els.nextBtn.classList.add('show');
+  els.nextBtn.textContent = (state.index + 1 < state.queue.length) ? 'Question suivante →' : 'Voir le résultat →';
+}
+
+els.nextBtn.addEventListener('click', () => {
+  state.index++;
+  if (state.index < state.queue.length) {
+    renderQuestion();
+  } else {
+    showResult();
+  }
+});
+
+els.quitBtn.addEventListener('click', () => showScreen('home'));
+
+function showResult() {
+  const total = state.answers.length;
+  const correct = state.correctCount;
+  const pct = total ? Math.round((correct / total) * 100) : 0;
+  const score20 = total ? Math.round((correct / total) * 20 * 10) / 10 : 0;
+
+  els.progressFill.style.width = '100%';
+  els.resultCat.textContent = state.categoryLabel.toUpperCase();
+  els.resultScore20.textContent = score20;
+  els.resultDetail.textContent = `${correct} bonnes réponses sur ${total} (${pct} %)`;
+
+  renderReview(false);
+  showScreen('result');
+}
+
+function renderReview(onlyWrong) {
+  const wrongs = state.answers.filter(a => !a.isCorrect);
+  const list = onlyWrong ? wrongs : state.answers;
+  els.reviewList.innerHTML = '';
+
+  if (onlyWrong && wrongs.length === 0) {
+    els.reviewList.innerHTML = '<p class="review-empty">Aucune erreur — excellent travail !</p>';
+    return;
+  }
+
+  const toShow = onlyWrong ? wrongs : wrongs; // le récapitulatif liste toujours les erreurs
+  if (toShow.length === 0) {
+    els.reviewList.innerHTML = '<p class="review-empty">Toutes les réponses étaient correctes — excellent travail !</p>';
+    return;
+  }
+
+  const letters = ['A', 'B', 'C', 'D'];
+  toShow.forEach(a => {
+    const item = document.createElement('div');
+    item.className = 'review-item';
+    item.innerHTML = `
+      <p class="review-q">${a.question.q}</p>
+      <p class="review-line wrong-ans"><span class="lbl">Votre réponse :</span> ${letters[a.chosenIndex]}. ${a.question.options[a.chosenIndex]}</p>
+      <p class="review-line right-ans"><span class="lbl">Bonne réponse :</span> ${letters[a.question.correct]}. ${a.question.options[a.question.correct]}</p>
+      <p class="review-explain">${a.question.explain} <em>(${a.question.ref || ''})</em></p>
+    `;
+    els.reviewList.appendChild(item);
+  });
+}
+
+els.reviewWrongBtn.addEventListener('click', () => {
+  const wrongs = state.answers.filter(a => !a.isCorrect);
+  if (wrongs.length === 0) return;
+  state.queue = wrongs.map(w => w.question);
+  state.index = 0;
+  state.correctCount = 0;
+  state.answers = [];
+  state.categoryLabel = `${state.categoryLabel} — révision des erreurs`;
+  showScreen('quiz');
+  renderQuestion();
+});
+
+els.replayBtn.addEventListener('click', () => {
+  if (state.lastMode) startQuiz(state.lastMode);
+});
+
+els.homeBtn.addEventListener('click', () => showScreen('home'));
+els.randomBtn.addEventListener('click', () => startQuiz({ type: 'random' }));
+
+buildSectionList();
+</script>
+</body>
+</html>
